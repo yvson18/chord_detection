@@ -64,14 +64,14 @@ class DetectChords:
         self.cnn = load_model(self.cnn_net)
 
     def mp3_to_wav(self, mp3_song):
-        print('\nMp3 to wav conversion.')
+        #print('\nMp3 to wav conversion.')
         self.wav_song = mp3_song[:-3]+'wav'
         self.song_name = mp3_song.split('/')[-1].replace('+', ' ')[:-4]
         subprocess.call(['ffmpeg', '-i', mp3_song, self.wav_song])
-        print('\nSaving wav file to data...\n')
+        #print('\nSaving wav file to data...\n')
 
     def predict_seq(self):
-        print('\n\nMaking predictions - this might take 1-3 minutes. Please wait...\n')
+        #print('\n\nMaking predictions - this might take 1-3 minutes. Please wait...\n')
         spec = mm.audio.spectrogram.LogarithmicFilteredSpectrogram(self.wav_song, 
             num_channels=1, sample_rate=44100, fps=10, frame_size=8192, 
                 num_bands=24, fmin=65, fmax=2100, unique_filters=True)
@@ -114,7 +114,7 @@ class DetectChords:
         one_hot_preds = one_hot_preds.transpose()
 
         self.one_hot_preds = one_hot_preds
-        print('Predictions are created.')
+        #print('Predictions are created.')
 
         return one_hot_preds.shape, final_preds
 
